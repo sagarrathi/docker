@@ -1,4 +1,16 @@
+#Docker
 # docker build --tag python-django .
 # docker run --publish 8000:8000 python-django
+# Docker image list
+# docker exec -it container_name
+
+# Docker-compose 
 # docker-compose build
 # docker-compose run --rm  app django-admin startproject dsapp .
+# docker-compose up
+
+
+# Bash Shell
+# echo 'export DOCKER_USER="$(id -u):$(id -g)"' >> ~/.bash_profile
+# source ~/.bash_profile
+

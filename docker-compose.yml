@@ -8,5 +8,7 @@ services:
         - 8000:8000
       image: app:django
       container_name: django_container
+      user: $DOCKER_USER
       command: python3  manage.py runserver 0.0.0.0:8000
 
+ 

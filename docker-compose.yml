@@ -1,5 +1,35 @@
 version: '3.8'
 services: 
+
+    #Redis
+    redis:
+      image: redis
+      container_name: redis
+      user: $DOCKER_USER
+      
+    #Datasbse Postgres
+    db:
+      image: postgres
+      volumes: 
+        - ./data/db:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      container_name: postgres_db
+      user: 1000:1000
+    
+    adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
+      container_name: adminer
+      user: $DOCKER_USER
+      depends_on: 
+        - db
+
+    # Django App
     app:
       build : .
       volumes: 
@@ -7,8 +37,28 @@ services:
       ports: 
         - 8000:8000
       image: app:django
-      container_name: django_container
+      container_name: django_app
       user: $DOCKER_USER
       command: python3  manage.py runserver 0.0.0.0:8000
+      depends_on: 
+        - db
+
+
+    celery:
+      image: celery
+      restart: always
+      build:
+        context: . 
+      command: celery -A core worker -l INFO
+      volumes:
+        - .:/django
+      container_name: celery
+      user: $DOCKER_USER
+      depends_on:
+        - db
+        - redis
+        - app
+      
+
 
  

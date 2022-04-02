@@ -3,14 +3,25 @@
 # docker run --publish 8000:8000 python-django
 # Docker image list
 # docker exec -it container_name
+# docker exec -it django_app bash
+
 
 # Docker-compose 
 # docker-compose build
-# docker-compose run --rm  app django-admin startproject dsapp .
+# docker-compose run --rm  app django-admin startproject core .
 # docker-compose up
 
+# Django 
+python3 manage.py startapp newapp
 
 # Bash Shell
 # echo 'export DOCKER_USER="$(id -u):$(id -g)"' >> ~/.bash_profile
 # source ~/.bash_profile
 
+# Pip
+# pip list --format=freeze > requirements.txt
+
+# Postgres
+# Build image without user 
+# sudo chown -R 1000:1000 ./data
+# chnage user: $DOCKER_USER to user:1000:1000
